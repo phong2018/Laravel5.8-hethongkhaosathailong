@@ -1,0 +1,10 @@
+Hồ sơ 1559272519110
++ 31-05-2019 10:15:19: user4 (1cua-tư pháp) THÊM hồ sơ có Mã hồ sơ=1559272519110. Hồ sơ: Đăng ký khai sinh quá hạn; phong1; dia chi1; phong2018@gmail.com; 099999; 099999; 2019-05-31; 2019-06-02; 
++ 31-05-2019 10:15:19: user4 (1cua-tư pháp) THÊM quy trình.Quy trình: Nhận Hồ Sơ; user4 (1cua-tư pháp); ; Gửi mail: CóGửi Sms: Không
++ 31-05-2019 10:24:48: user4 (1cua-tư pháp) THÊM người tham gia xử lý hồ sơ: giám sát 1
++ 31-05-2019 10:35:14: giám sát 1 Cập nhật hồ sơ có Mã hồ sơ=1559272519110. Hồ sơ: Đăng ký khai sinh quá hạn; phong11111; dia chi1; phong2018@gmail.com; 99999; 99999; 2019-05-31; 2019-06-02; 
++ 31-05-2019 10:35:14: giám sát 1 THÊM quy trình.Quy trình: Đang Xử Lý; user5 (tư pháp); ; Gửi mail: Có; Gửi Sms: Có; 
++ 31-05-2019 10:35:14: giám sát 1 THÊM người tham gia xử lý hồ sơ: user5 (tư pháp)
++ 31-05-2019 10:35:14: giám sát 1 THÊM người tham gia xử lý hồ sơ: user6 (THANH TRA)
++ 31-05-2019 10:36:47: giám sát 1 Cập nhật hồ sơ có Mã hồ sơ=1559272519110. Hồ sơ: Đăng ký khai sinh quá hạn; phong11111; dia chi1; phong2018@gmail.com; 99999; 99999; 2019-05-31; 2019-06-02; 
++ 31-05-2019 10:37:02: giám sát 1 XÓA hồ sơ có Mã hồ sơ=1559272519110

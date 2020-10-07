@@ -1,0 +1,13 @@
+Hồ sơ 1559440923124
++ 02-06-2019 09:02:03: user4 (1cua-tư pháp) THÊM hồ sơ có Mã hồ sơ=1559440923124. Hồ sơ: Giải quyết tố cáo; phong2-6-1; dia chi- phong2-6-1; phong2018@gmail.com; 099999; 11111; 2019-06-02; 2019-06-07; 
++ 02-06-2019 09:02:03: user4 (1cua-tư pháp) THÊM quy trình.Quy trình: Nhận Hồ Sơ; user4 (1cua-tư pháp); ; Gửi mail: Có; Gửi Sms: Có; 
++ 02-06-2019 15:03:32: user4 (1cua-tư pháp) THÊM người tham gia xử lý hồ sơ: user5 (tư pháp)
++ 02-06-2019 15:06:22: user5 (tư pháp) THÊM quy trình.Quy trình: Đang Xử Lý; user5 (tư pháp); đang xử lý; Gửi mail: Không; Gửi Sms: Không; 
++ 02-06-2019 15:12:44: user4 (1cua-tư pháp) THÊM người tham gia xử lý hồ sơ: giám sát 1
++ 02-06-2019 15:13:09: giám sát 1 Cập nhật hồ sơ có Mã hồ sơ=1559440923124. Hồ sơ: Giải quyết tố cáo; phong 2-6-1-1; dia chi- phong2-6-1; phong2018@gmail.com; 99999; 11111; 2019-06-02; 2019-06-07; 
++ 02-06-2019 15:15:55: user5 (tư pháp) THÊM quy trình.Quy trình: Lãnh Đạo Duyệt; user ba-phó chủ tịch; chuyển lãnh đạo duyệt; Gửi mail: Không; Gửi Sms: Không; 
++ 02-06-2019 15:15:55: user5 (tư pháp) THÊM người tham gia xử lý hồ sơ: user ba-phó chủ tịch
++ 02-06-2019 15:18:08: giám sát 1 XÓA hồ sơ có Mã hồ sơ=1559440923124
++ 02-06-2019 15:26:03: user4 (1cua-tư pháp) THÊM quy trình.Quy trình: Chờ trả Kết Quả; user4 (1cua-tư pháp); ; Gửi mail: Không; Gửi Sms: Không; 
++ 02-06-2019 15:26:32: user4 (1cua-tư pháp) THÊM quy trình.Quy trình: Hoàn Thành; user4 (1cua-tư pháp); ; Gửi mail: Không; Gửi Sms: Không; 
++ 11-06-2019 22:38:33: user4 (1cua-tư pháp) THÊM quy trình.Quy trình: Chờ trả Kết Quả; user4 (1cua-tư pháp); ; Gửi mail: Có; Gửi Sms: Không; 

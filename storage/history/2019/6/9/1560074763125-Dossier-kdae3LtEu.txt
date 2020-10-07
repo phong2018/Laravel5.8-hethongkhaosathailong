@@ -1,0 +1,7 @@
+Hồ sơ 1560074763125
++ 09-06-2019 17:06:03: nhân viên 13 THÊM hồ sơ có Mã hồ sơ=1560074763125. Hồ sơ: Đăng ký khai sinh thông thường cho con tui; Nguyễn Văn Tèo; 111 đường không tên P11 Q19; teo@gmail.com; 123456789; 123456789; 2019-06-09; 2019-06-13; 
++ 09-06-2019 17:06:03: nhân viên 13 THÊM quy trình.Quy trình: Nhận Hồ Sơ; user5 (tư pháp); ; Gửi mail: Có; Gửi Sms: Có; 
++ 09-06-2019 17:06:03: nhân viên 13 THÊM người tham gia xử lý hồ sơ: user5 (tư pháp)
++ 11-06-2019 07:48:27: user5 (tư pháp) THÊM quy trình.Quy trình: Lãnh Đạo Duyệt; Trần Quốc Hưng; Chưa cần ghi chú nào; Gửi mail: Có; Gửi Sms: Có; 
++ 11-06-2019 07:48:27: user5 (tư pháp) THÊM người tham gia xử lý hồ sơ: Trần Quốc Hưng
++ 11-06-2019 07:56:09: Trần Quốc Hưng THÊM quy trình.Quy trình: Chờ trả Kết Quả; user5 (tư pháp); Ký rồi; Gửi mail: Có; Gửi Sms: Không; 

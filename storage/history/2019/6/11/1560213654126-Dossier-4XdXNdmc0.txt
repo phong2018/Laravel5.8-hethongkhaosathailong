@@ -1,0 +1,5 @@
+Hồ sơ 1560213654126
++ 11-06-2019 07:40:54: nhân viên 13 THÊM hồ sơ có Mã hồ sơ=1560213654126. Hồ sơ: Đăng ký kết hôn lần đầu cho ông Tèo; Nguyễn Văn Tèo; 12 đường 17, phường 18, Quận 19; teo@gmail.com; 23; 1; 2019-06-11; 2019-06-13; 
++ 11-06-2019 07:40:54: nhân viên 13 THÊM quy trình.Quy trình: Nhận Hồ Sơ; nhân viên 13; Chưa có ghi chú nào 123; Gửi mail: Có; Gửi Sms: Có; 
++ 11-06-2019 07:40:54: nhân viên 13 THÊM người tham gia xử lý hồ sơ: user4 (1cua-tư pháp)
++ 11-06-2019 07:50:04: user4 (1cua-tư pháp) THÊM quy trình.Quy trình: Đang Xử Lý; user4 (1cua-tư pháp); Hồ sơ OK; Gửi mail: Có; Gửi Sms: Không; 

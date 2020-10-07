@@ -1,0 +1,5 @@
+Hồ sơ 1559272848112
++ 31-05-2019 10:20:48: user4 (1cua-tư pháp) THÊM hồ sơ có Mã hồ sơ=1559272848112. Hồ sơ: Đăng ký khai sinh thông thường; phong1; dia chi1; email1@gmail.com; 0999; 1111; 2019-05-31; 2019-06-05; 
++ 31-05-2019 10:20:48: user4 (1cua-tư pháp) THÊM quy trình.Quy trình: Nhận Hồ Sơ; user4 (1cua-tư pháp); ; Gửi mail: Có; Gửi Sms: Có; 
++ 31-05-2019 10:24:29: user4 (1cua-tư pháp) THÊM người tham gia xử lý hồ sơ: giám sát 1
++ 31-05-2019 10:24:53: giám sát 1 XÓA hồ sơ có Mã hồ sơ=1559272848112

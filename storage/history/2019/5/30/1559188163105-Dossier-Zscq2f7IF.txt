@@ -1,0 +1,6 @@
+1559188163105
+30-05-2019 10:49:23: user4 (1cua-tư pháp) TẠO hồ sơ có Mã hồ sơ=1559188163105. Hồ sơ: Đăng ký khai sinh cho trẻ em bị bỏ rơi; phong1; dia chi1; phong2018@gmail.com; 099999; 11111; 2019-05-30; 2019-05-30; 
+30-05-2019 10:49:23: user4 (1cua-tư pháp) TẠO quy trình. Mã quy trình=182. Quy trình: Nhận Hồ Sơ; user4 (1cua-tư pháp); ; Gửi mail: 1; Gửi sms: ; 
+- 30-05-2019 10:51:56: giám sát 1 XÓA hồ sơ có Mã hồ sơ=1559188163105
++ 30-05-2019 10:52:58: giám sát 1 XÓA hồ sơ có Mã hồ sơ=1559188163105
++ 31-05-2019 08:50:06: giám sát 1 XÓA hồ sơ có Mã hồ sơ=1559188163105

@@ -1,0 +1,11 @@
+Hồ sơ 1559358742123
++ 01-06-2019 10:12:22: us11-công thưuong THÊM hồ sơ có Mã hồ sơ=1559358742123. Hồ sơ: Cấp sửa đổi, bổ sung Giấy xác nhận đăng ký sản xuất rượu thủ công đẻ bán cho doanh nghiệp có giấy phép sản xuất rượu để chế biến lại; phong1; dia chi1; email1@gmail.com; 099999; 22222; 2019-06-01; 2019-06-11; 
++ 01-06-2019 10:12:22: us11-công thưuong THÊM quy trình.Quy trình: Nhận Hồ Sơ; us11-công thưuong; ; Gửi mail: Có; Gửi Sms: Có; 
++ 01-06-2019 10:13:25: us11-công thưuong THÊM người tham gia xử lý hồ sơ: us12-xử lý công thương
++ 01-06-2019 10:14:02: us11-công thưuong THÊM người tham gia xử lý hồ sơ: giám sát 1
++ 01-06-2019 10:14:11: giám sát 1 Cập nhật hồ sơ có Mã hồ sơ=1559358742123. Hồ sơ: Cấp sửa đổi, bổ sung Giấy xác nhận đăng ký sản xuất rượu thủ công đẻ bán cho doanh nghiệp có giấy phép sản xuất rượu để chế biến lại; phong111; dia chi1; email1@gmail.com; 99999; 22222; 2019-06-01; 2019-06-11; 
++ 01-06-2019 10:15:51: us12-xử lý công thương THÊM quy trình.Quy trình: Đang Xử Lý; us12-xử lý công thương; ; Gửi mail: Không; Gửi Sms: Không; 
++ 01-06-2019 10:16:57: us12-xử lý công thương THÊM quy trình.Quy trình: Lãnh Đạo Duyệt; user hai-phó chủ tịch; us2 duyệt; Gửi mail: Không; Gửi Sms: Không; 
++ 01-06-2019 10:16:57: us12-xử lý công thương THÊM người tham gia xử lý hồ sơ: user hai-phó chủ tịch
++ 01-06-2019 10:17:38: us11-công thưuong THÊM quy trình.Quy trình: Chờ trả Kết Quả; us11-công thưuong; ; Gửi mail: Có; Gửi Sms: Không; 
++ 01-06-2019 10:18:15: us11-công thưuong THÊM quy trình.Quy trình: Hoàn Thành; us11-công thưuong; ; Gửi mail: Có; Gửi Sms: Không; 
