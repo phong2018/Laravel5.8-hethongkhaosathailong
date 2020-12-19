@@ -1,0 +1,11 @@
+Hồ sơ 1560266351127
++ 11-06-2019 22:19:11: user4 (1cua-tư pháp) THÊM hồ sơ có Mã hồ sơ=1560266351127. Hồ sơ: Đăng ký khai sinh thông thường; phong1; dia chi1; phong2018@gmail.com; 1111; 111111; 2019-06-11; 2019-06-16; 
++ 11-06-2019 22:19:11: user4 (1cua-tư pháp) THÊM quy trình.Quy trình: Nhận Hồ Sơ; user4 (1cua-tư pháp); 111; Gửi mail: Có; Gửi Sms: Không; 
++ 11-06-2019 22:19:37: user4 (1cua-tư pháp) THÊM quy trình.Quy trình: Đang Xử Lý; user4 (1cua-tư pháp); ; Gửi mail: Có; Gửi Sms: Không; 
++ 11-06-2019 22:28:39: user4 (1cua-tư pháp) THÊM quy trình.Quy trình: Hoàn Thành; user4 (1cua-tư pháp); ; Gửi mail: Có; Gửi Sms: Không; 
++ 11-06-2019 22:29:51: user4 (1cua-tư pháp) THÊM quy trình.Quy trình: Chờ trả Kết Quả; user4 (1cua-tư pháp); ; Gửi mail: Có; Gửi Sms: Không; 
++ 11-06-2019 22:31:33: user4 (1cua-tư pháp) THÊM quy trình.Quy trình: Trả Hồ Sơ để Bổ Sung; user4 (1cua-tư pháp); ; Gửi mail: Có; Gửi Sms: Không; 
++ 11-06-2019 22:32:21: user4 (1cua-tư pháp) THÊM quy trình.Quy trình: Đang Xử Lý; user4 (1cua-tư pháp); ; Gửi mail: Có; Gửi Sms: Không; 
++ 12-06-2019 15:47:00: user4 (1cua-tư pháp) THÊM người tham gia xử lý hồ sơ: giám sát 1
++ 12-06-2019 15:47:33: giám sát 1 XÓA hồ sơ có Mã hồ sơ=1560266351127
++ 13-06-2019 10:17:41: giám sát 1 XÓA hồ sơ có Mã hồ sơ=1560266351127

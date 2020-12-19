@@ -1,0 +1,11 @@
+Hồ sơ 1559267620109
++ 31-05-2019 08:53:40: user4 (1cua-tư pháp) TẠO hồ sơ có Mã hồ sơ=1559267620109. Hồ sơ: Đăng ký khai sinh thông thường01; phong1; dia chi1; phong2018@gmail.com; 0971793662; 099; 2019-05-31; 2019-06-05; 
++ 31-05-2019 08:53:40: user4 (1cua-tư pháp) TẠO quy trình.Quy trình: Nhận Hồ Sơ; user4 (1cua-tư pháp); ; Gửi mail: ; Gửi sms: ; 
++ 31-05-2019 08:53:40: user4 (1cua-tư pháp) THÊM người tham gia xử lý hồ sơ: user5 (tư pháp)
++ 31-05-2019 09:35:10: user4 (1cua-tư pháp) THÊM người tham gia xử lý hồ sơ: user6 (THANH TRA)
++ 31-05-2019 09:35:26: user4 (1cua-tư pháp) THÊM quy trình.Quy trình: Nhận Hồ Sơ; user ba-phó chủ tịch; ; Gửi mail: KhôngGửi Sms: Không
++ 31-05-2019 09:35:26: user4 (1cua-tư pháp) THÊM người tham gia xử lý hồ sơ: user ba-phó chủ tịch
++ 31-05-2019 09:35:44: user4 (1cua-tư pháp) THÊM quy trình.Quy trình: Sửa thông tin hồ sơ; user một-chủ tịch; ; Gửi mail: KhôngGửi Sms: Không
++ 31-05-2019 09:35:44: user4 (1cua-tư pháp) THÊM người tham gia xử lý hồ sơ: user một-chủ tịch
++ 31-05-2019 09:36:00: user4 (1cua-tư pháp) THÊM quy trình.Quy trình: Hoàn Thành; user4 (1cua-tư pháp); ; Gửi mail: KhôngGửi Sms: Không
++ 31-05-2019 10:24:11: giám sát 1 XÓA hồ sơ có Mã hồ sơ=1559267620109

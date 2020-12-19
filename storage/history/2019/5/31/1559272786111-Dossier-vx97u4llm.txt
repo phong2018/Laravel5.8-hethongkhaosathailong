@@ -1,0 +1,5 @@
+Hồ sơ 1559272786111
++ 31-05-2019 10:19:46: user4 (1cua-tư pháp) THÊM hồ sơ có Mã hồ sơ=1559272786111. Hồ sơ: Giải quyết tố cáo; phong1; dia chi1; ; 0000; 11111; 2019-05-31; 2019-05-31; 
++ 31-05-2019 10:19:46: user4 (1cua-tư pháp) THÊM quy trình.Quy trình: Nhận Hồ Sơ; user4 (1cua-tư pháp); ; Gửi mail: Có; Gửi Sms: Có; 
++ 31-05-2019 10:24:39: user4 (1cua-tư pháp) THÊM người tham gia xử lý hồ sơ: giám sát 1
++ 31-05-2019 10:24:54: giám sát 1 XÓA hồ sơ có Mã hồ sơ=1559272786111

@@ -1,0 +1,10 @@
+Hồ sơ 1559284849113
++ 31-05-2019 13:40:49: user4 (1cua-tư pháp) THÊM hồ sơ có Mã hồ sơ=1559284849113. Hồ sơ: Đăng ký việc nhận con; phong1; ádf; email1@gmail.com; 0999; 099; 2019-05-31; 2019-05-31; 
++ 31-05-2019 13:40:49: user4 (1cua-tư pháp) THÊM quy trình.Quy trình: Nhận Hồ Sơ; user4 (1cua-tư pháp); ; Gửi mail: Có; Gửi Sms: Có; 
++ 31-05-2019 13:41:17: user4 (1cua-tư pháp) THÊM người tham gia xử lý hồ sơ: user5 (tư pháp)
++ 31-05-2019 13:42:42: user5 (tư pháp) THÊM quy trình.Quy trình: Đang Xử Lý; user5 (tư pháp); ; Gửi mail: Không; Gửi Sms: Không; 
++ 31-05-2019 13:43:18: user5 (tư pháp) THÊM người tham gia xử lý hồ sơ: user ba-phó chủ tịch
++ 31-05-2019 13:43:41: user5 (tư pháp) THÊM quy trình.Quy trình: Lãnh Đạo Duyệt; user ba-phó chủ tịch; ; Gửi mail: Không; Gửi Sms: Không; 
++ 31-05-2019 13:44:21: user5 (tư pháp) THÊM quy trình.Quy trình: Chờ trả Kết Quả; user4 (1cua-tư pháp); ; Gửi mail: Không; Gửi Sms: Không; 
++ 31-05-2019 13:44:39: user4 (1cua-tư pháp) THÊM quy trình.Quy trình: Hoàn Thành; user4 (1cua-tư pháp); ; Gửi mail: Không; Gửi Sms: Không; 
++ 31-05-2019 13:47:04: user5 (tư pháp) THÊM quy trình.Quy trình: Đang Xử Lý; user5 (tư pháp); ; Gửi mail: Không; Gửi Sms: Không; 

@@ -1,0 +1,8 @@
+Hồ sơ 1559307952001
++ 31-05-2019 20:05:52: user4 (1cua-tư pháp) THÊM hồ sơ có Mã hồ sơ=1559307952001. Hồ sơ: Đăng ký khai sinh thông thường; Lê Giang Phong; thạnh phú; phong2018@gmail.com; 0971793662; 1231313; 2019-05-31; 2019-06-05; 
++ 31-05-2019 20:05:52: user4 (1cua-tư pháp) THÊM quy trình.Quy trình: Nhận Hồ Sơ; user4 (1cua-tư pháp); ; Gửi mail: Có; Gửi Sms: Có; 
++ 04-06-2019 11:59:50: user4 (1cua-tư pháp) THÊM người tham gia xử lý hồ sơ: user5 (tư pháp)
++ 04-06-2019 12:00:56: user5 (tư pháp) THÊM quy trình.Quy trình: Đang Xử Lý; user5 (tư pháp); ; Gửi mail: Không; Gửi Sms: Không; 
++ 04-06-2019 12:03:56: user4 (1cua-tư pháp) THÊM người tham gia xử lý hồ sơ: user ba-phó chủ tịch
++ 04-06-2019 12:04:22: user5 (tư pháp) THÊM quy trình.Quy trình: Lãnh Đạo Duyệt; user ba-phó chủ tịch; ; Gửi mail: Không; Gửi Sms: Không; 
++ 04-06-2019 12:05:44: user4 (1cua-tư pháp) THÊM quy trình.Quy trình: Chờ trả Kết Quả; user4 (1cua-tư pháp); ; Gửi mail: Không; Gửi Sms: Không; 

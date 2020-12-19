@@ -1,0 +1,4 @@
+Hồ sơ 1559224703107
++ 30-05-2019 20:58:23: user4 (1cua-tư pháp) TẠO hồ sơ có Mã hồ sơ=1559224703107. Hồ sơ: Đăng ký khai sinh thông thường; phong1; dia chi1; phong2018@gmail.com; 11111; 111; 2019-05-30; 2019-06-04; 
++ 30-05-2019 20:58:23: user4 (1cua-tư pháp) TẠO quy trình. Mã quy trình=183. Quy trình: Nhận Hồ Sơ; user5 (tư pháp); ; Gửi mail: ; Gửi sms: ; 
++ 31-05-2019 08:50:52: giám sát 1 XÓA hồ sơ có Mã hồ sơ=1559224703107

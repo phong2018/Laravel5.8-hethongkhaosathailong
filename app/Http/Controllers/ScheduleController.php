@@ -1,0 +1,277 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use App\Organization;
+use App\Setting; 
+use App\User;
+use Auth;
+use App\Schedule; 
+
+class ScheduleController extends Controller
+{
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function index()
+    {
+        //$data = ['appId'=>4, 'languageId'=>5];
+        //echo Setting::passDataToModelMethod($data);  
+        //echo Setting::getconfig('HLEO');  
+
+
+        $data=array(
+            'filter_schedule_orgid'=>0 ,
+            'filter_schedule_isActived'=>0 
+        );
+
+
+         $data['title']='Lịch Làm Việc';
+
+        //tạo breadcumbs
+        $data['breadcrumbs'] = array();
+        $data['breadcrumbs'][] = array(
+            'text' =>'Trang chủ',
+            'href' => url("/admin")
+        );
+        $data['breadcrumbs'][] = array(
+            'text' => $data['title'],
+            'href' => url("/admin/schedule"),
+        );
+        //'data'=>$data,   
+
+        $schedules= DB::table('ks_schedule')
+            ->join('ks_organization', 'ks_organization.org_id', '=', 'ks_schedule.schedule_idOrg')
+            ->select('ks_schedule.*');
+ 
+
+        if(isset($_GET['filter_schedule_orgid']) && $_GET['filter_schedule_orgid']!=0){
+            $schedules= $schedules->where('ks_organization.org_id',$_GET['filter_schedule_orgid'])->orwhere('ks_organization.org_idParent',$_GET['filter_schedule_orgid']);
+            $data['filter_schedule_orgid']=$_GET['filter_schedule_orgid'];
+        } 
+
+        if(isset($_GET['filter_schedule_isActived']) ){
+            $schedules= $schedules->where('schedule_isActived',$_GET['filter_schedule_isActived']);
+            $data['filter_schedule_isActived']=$_GET['filter_schedule_isActived'];
+            //echo 'vv';
+        } 
+
+        $tempus=User::find(Auth::id());
+
+        $data['checkadmin']=1;
+
+        
+         
+        
+
+        //$data['orgs'] = Organization::orderBy('org_id', 'DESC')->where("org_isActived",">",0)->where("org_level","=",1)->get();
+
+        //=========
+         //lọc lại thwo cấp quản lý nếu ko phải admin
+        $org = Organization::orderBy('org_id', 'DESC');
+        
+        if($tempus->user_level>1){
+            $data['checkadmin']=0;
+
+           $orgt=$org->where('org_id',$tempus->user_IdOrg)->get()->first();
+
+           if($orgt->org_level==2){
+             $org=Organization::orderBy('org_id', 'DESC')->where('org_id',$orgt->org_idParent)->paginate(Setting::getconfig('config_showeverypage')); 
+           }
+           else{
+             $org=Organization::orderBy('org_id', 'DESC')->where('org_id',$tempus->user_IdOrg)->paginate(Setting::getconfig('config_showeverypage')); 
+           }
+           //----------
+
+            $orgphuongtemp=Organization::find($tempus->user_IdOrg);
+            
+            if($orgphuongtemp->org_level>1) $orgphuong=Organization::find($orgphuongtemp->org_idParent);
+            else $orgphuong=$orgphuongtemp;
+
+
+            $schedules= $schedules->where('ks_organization.org_id',$orgphuong->org_id)->orwhere('ks_organization.org_idParent',$orgphuong->org_id);
+
+            if(isset($_GET['filter_schedule_isActived']) ){
+            $schedules= $schedules->where('schedule_isActived',$_GET['filter_schedule_isActived']);
+            $data['filter_schedule_isActived']=$_GET['filter_schedule_isActived'];
+            //echo 'vv';
+        } 
+
+
+        }
+        else
+        $org =$org->where('org_level',1)->paginate(Setting::getconfig('config_showeverypage'));
+
+        $data['orgs']=$org;
+
+        $schedules= $schedules->get();//paginate(Setting::getconfig('config_showeverypage'));
+
+        return view('admin.schedule.listschedule',['data'=>$data, 'schedules'=>$schedules]);
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function create()
+    {
+         
+        $data['title']='Thêm lịch làm việc';
+
+        //tạo breadcumbs
+        $data['breadcrumbs'] = array();
+        $data['breadcrumbs'][] = array(
+            'text' =>'Trang chủ',
+            'href' => url("/admin")
+        );
+        $data['breadcrumbs'][] = array(
+            'text' => $data['title'],
+            'href' => url("/admin/schedule"),
+        );
+
+         $org = Organization::orderBy('org_id', 'DESC')->where('org_level',1)->where("org_isActived",">",0)->paginate(Setting::getconfig('config_showeverypage'));
+
+        $org_child=array();
+        foreach($org as $no=>$val){
+            $org_child[$no] = Organization::orderBy('org_id', 'DESC')->where('org_idParent',$val->org_id)->where("org_isActived",">",0)->get();
+        }
+   
+        //'data'=>$data,   
+        return view('admin.schedule.addschedule',['data'=>$data,'org'=>$org,'org_child'=>$org_child]);
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function store(Request $request)
+    {
+        $schedule = new Schedule;
+        $schedule->schedule_name = $request->schedule_name;
+        $schedule->schedule_idOrg = $request->schedule_IdOrg;
+        $schedule->schedule_morningStart =$request->schedule_morningStart;
+        $schedule->schedule_morningEnd =$request->schedule_morningEnd;
+        $schedule->schedule_afternoonStart =$request->schedule_afternoonStart;
+        $schedule->schedule_afternoonEnd =$request->schedule_afternoonEnd;
+        $schedule->schedule_eveningStart =$request->schedule_eveningStart;
+        $schedule->schedule_eveningEnd =$request->schedule_eveningEnd;      
+        $schedule->schedule_isActived= $request->schedule_isActived;
+
+        $schedule->save();
+        return redirect('admin/schedule')->with('messenger', 'Thêm mới Lịch làm việc thành công');
+    }
+
+    public function copy($id)
+    {
+        $sche=Schedule::find($id);  
+
+        $schedule = new Schedule;
+        $schedule->schedule_name = $sche->schedule_name.'-copy';
+        $schedule->schedule_idOrg = $sche->schedule_idOrg;
+        $schedule->schedule_morningStart =$sche->schedule_morningStart;
+        $schedule->schedule_morningEnd =$sche->schedule_morningEnd;
+        $schedule->schedule_afternoonStart =$sche->schedule_afternoonStart;
+        $schedule->schedule_afternoonEnd =$sche->schedule_afternoonEnd;
+        $schedule->schedule_eveningStart =$sche->schedule_eveningStart;
+        $schedule->schedule_eveningEnd =$sche->schedule_eveningEnd;      
+        $schedule->schedule_isActived= 0;
+
+        $schedule->save();
+        return redirect('admin/schedule/'.$schedule->schedule_id.'/edit')->with('messenger', 'Copy Lịch làm việc Thành Công');
+ 
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function show($id)
+    {
+        //
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function edit($id)
+    {
+        
+        
+        $schedule=Schedule::find($id); 
+        
+        $data['title']='Sửa Lịch Làm Việc';
+
+        //tạo breadcumbs
+        $data['breadcrumbs'] = array();
+        $data['breadcrumbs'][] = array(
+            'text' =>'Trang chủ',
+            'href' => url("/admin")
+        );
+        $data['breadcrumbs'][] = array(
+            'text' => $data['title'],
+            'href' => url("/admin/schedule/".$id.'/edit'),
+        );
+        //'data'=>$data,   
+         $org = Organization::orderBy('org_id', 'DESC')->where('org_level',1)->where("org_isActived",">",0)->paginate(Setting::getconfig('config_showeverypage'));
+
+        $org_child=array();
+        foreach($org as $no=>$val){
+            $org_child[$no] = Organization::orderBy('org_id', 'DESC')->where('org_idParent',$val->org_id)->where("org_isActived",">",0)->get();
+        }
+        
+        if( $schedule)
+        return view('admin.schedule.editschedule',['data'=>$data ,'org'=>$org,'org_child'=>$org_child, 'schedule' => $schedule]);
+
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function update(Request $request, $id)
+    {
+          $schedule = Schedule::find($id);
+        $schedule->schedule_name = $request->schedule_name;
+        $schedule->schedule_idOrg = $request->schedule_IdOrg;
+        $schedule->schedule_morningStart =$request->schedule_morningStart;
+        $schedule->schedule_morningEnd =$request->schedule_morningEnd;
+        $schedule->schedule_afternoonStart =$request->schedule_afternoonStart;
+        $schedule->schedule_afternoonEnd =$request->schedule_afternoonEnd;
+        $schedule->schedule_eveningStart =$request->schedule_eveningStart;
+        $schedule->schedule_eveningEnd =$request->schedule_eveningEnd;      
+        $schedule->schedule_isActived= $request->schedule_isActived;
+
+        $schedule->save();
+        return redirect('admin/schedule')->with('messenger', 'Sửa Lịch làm việc thành công');
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy($id)
+    {
+
+     
+        $Sche = Schedule::find($id);
+        if($Sche) $Sche->delete();
+    
+    }
+}

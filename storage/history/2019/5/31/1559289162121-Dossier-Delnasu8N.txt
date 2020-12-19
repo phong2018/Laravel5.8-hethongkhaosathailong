@@ -1,0 +1,7 @@
+Hồ sơ 1559289162121
++ 31-05-2019 14:52:42: user4 (1cua-tư pháp) THÊM hồ sơ có Mã hồ sơ=1559289162121. Hồ sơ: Đăng ký khai sinh thông thường; phong1; dia chi1; phong2018@gmail.com; 099999; 11111; 2019-05-31; 2019-06-05; 
++ 31-05-2019 14:52:42: user4 (1cua-tư pháp) THÊM quy trình.Quy trình: Nhận Hồ Sơ; user4 (1cua-tư pháp); ; Gửi mail: Có; Gửi Sms: Có; 
++ 31-05-2019 14:52:59: user4 (1cua-tư pháp) THÊM quy trình.Quy trình: Chờ trả Kết Quả; user5 (tư pháp); ; Gửi mail: Có; Gửi Sms: Có; 
++ 31-05-2019 14:52:59: user4 (1cua-tư pháp) THÊM người tham gia xử lý hồ sơ: user5 (tư pháp)
++ 31-05-2019 14:52:59: user4 (1cua-tư pháp) THÊM người tham gia xử lý hồ sơ: user9 (LAO ĐỘNG THƯƠNG BINH & XÃ HỘI)
++ 31-05-2019 14:56:24: user5 (tư pháp) THÊM quy trình.Quy trình: Hoàn Thành; user5 (tư pháp); ; Gửi mail: Có; Gửi Sms: Có; 
