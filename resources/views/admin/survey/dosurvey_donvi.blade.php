@@ -55,6 +55,7 @@ session_start();
         <div class='cochucauhoi'> 
        <p class='nocauhoi' style='  line-height: 15px;margin-bottom: 0px;float:left;'><strong>Câu {{$noques+1}}:</strong> &nbsp </p>
        <p style=' text-align: justify; line-height: 15px;float:left;'><?php echo $ques->question_description; ?></p>  
+       <input type="hidden" id="selected{{$noques}}" name="selected{{$noques}}" />
 
        </div>
         <!-- loại 1: chọn 1 câu trả lời dùng radio box -->
@@ -214,8 +215,13 @@ function resetchon(){
      $("input").prop("checked", false);
 }
 function chonans(noques,noans,cc=0,dapans=""){
+ 
     //noques++;noans++;
     var id="#ques"+noques+"ans"+noans;
+    //----gán chọn vị trí thứ mấy
+    var idselect="#selected"+noques;
+    $(idselect).val(noans);
+    console.log('idselect:',idselect);
     //alert(id);
     $(id).prop("checked", true);
     //==========
@@ -242,7 +248,7 @@ $(document).ready(function(){
        checkaction=1;
      
     };
-    document.body.onmousedown = function() { 
+    document.body.onmousemove = function() { 
        checkaction=1;
     }
 
@@ -273,7 +279,7 @@ $(document).ready(function(){
       }
       else checkaction=0;
 
-    },{{($data['config_time_auto_direct']*1000)}});
+    },{{($data['config_time_auto_direct']*100000)}});
 
     $('#navbarDropdown').hide();
 

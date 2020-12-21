@@ -1,0 +1,7 @@
+--------20/12/20
+- add: cột resultSelected cho bảng ks_result: để lưu xem chọn câu trả lời thứ mấy
+- add: resultSelected cho bảng ks_result lúc lưu
+- add: lưu resultSelected lúc lưu hóa đơn
+----->
+- add: thống kê theo câu hỏi
+--------

@@ -1155,18 +1155,20 @@ class SurveyController extends Controller
 
         // kiểm tra xem có làm câu nào không nếu không làm đủ thì không lưu
         $checkxoa=0;
-        foreach($question as $ques){
+        foreach($question as $noques=>$ques){
             $res = new Result;
             $res->result_idSurvey= $request->surveytid;
             $res->result_idQuestion= $ques->question_id;
+            //luu anwser
             $namequestion='question'.$ques->question_id;
-
             if($request->$namequestion=='') $checkxoa=1;
-
             if($ques->question_type==2){//nhiều đáp an checkbox
                 $res->result_Answer=json_encode($request->$namequestion) ;
             }
             else $res->result_Answer=$request->$namequestion ; 
+            //luu selected
+            $selectedans='selected'.$noques;
+            $res->resultSelected=$request->$selectedans; 
             $res->save();
         }
         //$result= Result::where('result_idSurvey', $request->surveytid)->get();
@@ -2398,10 +2400,6 @@ class SurveyController extends Controller
         if(isset($_GET['filter-input-ngaykhaosat']) && $_GET['filter-input-ngaykhaosat']!=''){
             $data['filter-input-ngaykhaosat']=$_GET['filter-input-ngaykhaosat'];
         }
-
-        
-
-
         /*kiểm tra có tìm kiểm theo ngày nhận*/
         if(isset($_GET['filter-input-ngaykhaosat']) && $_GET['filter-input-ngaykhaosat']!=''){
             $data['filter-input-ngaykhaosat']=$_GET['filter-input-ngaykhaosat'];
@@ -2484,7 +2482,7 @@ class SurveyController extends Controller
                     $data['count_survey']=$this->count_survey; 
                     //-- tạo ra từng hàng cho file excel
                    
-                    if($thongke!=null && count($thongke)>0){
+                    if($thongke!=null){
                         $no++;
                         $arr_body[]=$this->tinhdiemtuthongke($thongke,$no,$val->name,$data['count_survey']);
                     }
@@ -2663,7 +2661,7 @@ class SurveyController extends Controller
 
         $fans = $lava->DataTable();
         $value=array();
-        if(count($this->dtchartda)>0)
+        if($this->dtchartda!=null)
         foreach($this->dtchartda as $val){
             $value[]=array($val['des'],$val['slc']);
         }
@@ -2952,7 +2950,7 @@ class SurveyController extends Controller
                 else return view('admin.survey.ngoaigiolamviec');
             }
             // nếu có 1 bộ phần thì cũng vào trang chọn nhân viên luôn
-            if($child_org==null){
+            if(count($child_org)==1){
                 $child_org=$child_org->first();
                 return   redirect('/survey/selectemp/'.$child_org->org_id);  
             }

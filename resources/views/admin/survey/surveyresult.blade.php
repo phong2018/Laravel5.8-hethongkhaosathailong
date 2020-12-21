@@ -136,31 +136,28 @@
 
           </form>
             </div>
-    <div class="col-md-12 col-lg-12 col-xs-12">
+<div class="col-md-12 col-lg-12 col-xs-12">
   <div class="container">
-  <?php if(count($arr_header)>0) {?>  
-  <div  class="panel panel-default table-responsive" style=" overflow-x: auto;">
-    <table class='table'>
-      <?php foreach ($arr_header as $no1 => $val1) 
-          echo "<th>".$val1."</th>";
-      ?>
-      <?php 
-        for($i=0;$i<count($arr_body);$i++){
-          echo '<tr>';
-          foreach ($arr_body[$i] as $no1 => $val1) {
+    <?php if(count($arr_header)>0) {?>  
+      <div  class="panel panel-default table-responsive" style=" overflow-x: auto;">
+      <table class='table'>
+          <?php foreach ($arr_header as $no1 => $val1) 
+            echo "<th>".$val1."</th>";
+          ?>
+          <?php 
+          for($i=0;$i<count($arr_body);$i++){
+            echo '<tr>';
+            foreach ($arr_body[$i] as $no1 => $val1) {
             echo "<td>".$val1."</td>";
+            }
+            echo '</tr>';
           }
-          echo '</tr>';
-        }
-      ?>
-
-    </table>
-     
- </div>
-<?php }?>
-
+          ?>
+      </table>
+      </div>
+    <?php }?>
   </div>
-  </div>
+</div>
 </div>
 
 <div class="container">

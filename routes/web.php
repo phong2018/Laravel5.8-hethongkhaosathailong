@@ -68,6 +68,9 @@ Route::group(['middleware' => ['checkbaotri']] , function(){
 		Route::get('/survey/delete/{survey}', 'SurveyController@delete');
 		Route::get('/survey/show/{survey}', 'SurveyController@showsurvey')->name('survey.showsv');;
 		Route::get('/survey/surveyresult', 'SurveyController@surveyresult');
+		Route::get('/thongke/tkTheoCauhoi', 'ThongkeController@tkTheoCauhoi');
+		Route::get('/thongke/addcot', 'ThongkeController@addcot');
+		
 		Route::get('/survey/listsurvey', 'SurveyController@listsurvey');
 		Route::get('/survey/xuatchart', 'SurveyController@xuatchart');
 		Route::get('/survey/chart_DanhGiaTungNhanVien', 'SurveyController@chart_DanhGiaTungNhanVien');
