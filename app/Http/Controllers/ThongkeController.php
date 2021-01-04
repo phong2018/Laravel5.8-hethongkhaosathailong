@@ -85,7 +85,9 @@ class ThongkeController extends Controller
         //lấy dữ từng câu trả lời 
         $data['slThongke']=0;
         $data['arr_body']=array();
+        $data['arr_body_excel']=array();
         $data['arr_header']=array('Kết quả thống kê');
+        $lava=array();
         if($data['filter_survey_idorglv1']>0){
             $data['topic']=Topic::find( $data['filter_survey_topic_id']);
             $data['question'] = Question::orderBy('question_order', 'asc')->where("question_idTopic", $data['filter_survey_topic_id'])->where("question_isActived",1)->get();
@@ -95,6 +97,7 @@ class ThongkeController extends Controller
             $data['slThongke']=count($temp[1]);
             $data['maxAns']=0;
             //-----
+            $lava=array();
             //-----
             $slTk=count($data['thongke']);
             foreach($data['thongke'] as $notk=>$tk){
@@ -102,21 +105,75 @@ class ThongkeController extends Controller
                 $ans=Answer::orderBy('answer_order', 'asc')->where("answer_idQuestion", $question->question_id)->get();
                 if(count($ans))$data['maxAns']=count($ans);
                 $data['arr_body'][$notk][]='<strong>Câu '.($notk+1).'</strong>:'.$question->question_description;
+                $data['arr_body_excel'][$notk][]='<strong>Câu '.($notk+1).'</strong>:'.$question->question_description;
+                //-------
+                $value=array();
                 foreach($ans as $noans=>$a){
                     $tilept=$tk['ans'][$noans]/$data['slThongke']*100; 
-                    
                     if($tk['ans'][$noans]==0) $tt=" <span style='color:#ddd;'>..</span>0%";
                     else $tt="<span style='color:red;'>..</span>".$tk['ans'][$noans].'/'.$data['slThongke']." (".$tilept."%)";
+                    
                     $data['arr_body'][$notk][]=$a->answer_description."<div class='w100'><div class='fl'></div><div class='fl w100'>"."<div class='w100' style='border:none;  '><div class='containerbar  w100'>
                     <div class='skillsbar html' style='width:".$tilept."%;'>".$tt."</div></div></div>"."</div></div>";
+                    $data['arr_body_excel'][$notk][]=$a->answer_description."||".$tilept;
+                    //lay du lieu cho bieu do
+                    $value[]=array(rtrim(html_entity_decode(strip_tags($a->answer_description))),$tilept); 
                 } 
+                //-------bieu do tron 
+                $lava[$notk] =  $value;
+                
             }
         }
-       
-        
-        //-hiển thị
-        $data['topics'] = Topic::all();
-        return view('admin.survey.tkTheoCauhoi',['data'=>$data]);
+       /* kiểm tra Xuất Excel */ 
+       if(isset($_GET['xuatexcel'])){
+            $sheet_col='C';  
+            //==========
+            $arr_header=['#','Câu hỏi/Trả lời','Tỉ lệ'];
+            $sheet_header=[['BÁO CÁO KHẢO SÁT'],$arr_header];
+            //$arr_body=array(array('a1','a2','a3'),array('b1','b2','b3'));
+            $arr_body=array();
+            foreach($data['arr_body_excel'] as $no=>$vr){
+                //$v=array(($no+1),$vr,'3');
+              
+                foreach($vr as $novv=>$vv){
+                    $v=array();
+                    if($novv==0)$v[]="Câu ".($no+1); 
+                    else $v[]="+ " ;
+                    if($novv==0){
+                        $v[]=preg_replace( "/\n\s+/", "\n", rtrim(html_entity_decode(strip_tags($vv))));
+                        $v[]='';
+                    }                    
+                    else{
+                        $str=preg_replace( "/\n\s+/", "\n", rtrim(html_entity_decode(strip_tags($vv))));;
+                        $v1=strpos($str,"||");
+                        $v2=strlen($str);
+                        //substr(string,start,length)
+                        $v[]=substr($str,0,$v1);
+                        $v[]=substr($str,$v1+2,$v2-$v1)."%";
+                    }
+                    $arr_body[]=$v;
+                }
+                
+            }
+            $arr_body[]=array();
+            //-----
+            $sheet_data= collect($arr_body);
+            //---------
+            $tex=new ExcelExport;
+            $tex->sheet_col=$sheet_col;
+            $tex->sheet_data=$sheet_data;
+            $tex->sheet_header=$sheet_header;
+            $filename='Report-Survey-'.date("d-m-Y-H-i-s").'.xlsx';
+            return Excel::download($tex, $filename);
+            die;
+        }
+        else{
+            
+
+            //-hiển thị
+            $data['topics'] = Topic::all();
+            return view('admin.survey.tkTheoCauhoi',['data'=>$data,'lava'=>$lava ]);
+        }
     }
     //--------
     public function tinhThongke($results){
@@ -133,6 +190,7 @@ class ThongkeController extends Controller
                 $slCauhoi++;
             }
             //cộng thêm cho chọn đáp án $rs->resultSelected
+            if(isset($data[$vtCauhoi[$rs->result_idQuestion]]['ans'][$rs->resultSelected]))
             $data[$vtCauhoi[$rs->result_idQuestion]]['ans'][$rs->resultSelected]++;
         }
         return array($data,$slThongke);

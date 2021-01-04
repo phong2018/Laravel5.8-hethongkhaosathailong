@@ -39,6 +39,16 @@ class ExcelExport  implements FromCollection, WithHeadings, ShouldAutoSize, With
                         'size' => 12,
                     ]
                 ]);
+
+                
+
+                $event->sheet->getColumnDimension('B')->setAutoSize(false);
+                $event->sheet->getColumnDimension('B')->setWidth(70);
+                
+               
+
+         
+                 
                 //--------border cho cell
                 $styleArray = [
 				    'borders' => [
@@ -46,14 +56,23 @@ class ExcelExport  implements FromCollection, WithHeadings, ShouldAutoSize, With
 				            'borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN,
 				            'color' => ['argb' => 'red'],
 				        ],
-				    ],
+                    ],
+                     'alignment' => [
+                        'horizontal' => \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_LEFT,
+                        'vertical' => \PhpOffice\PhpSpreadsheet\Style\Alignment::VERTICAL_TOP,
+                        
+
+                    ],
 				];
 
 				$countrow=count($this->sheet_data);
 				for($no=1;$no<=$countrow;$no++){
 				    $cellRange = 'A'.($no+1).':'.$this->sheet_col.($no+1); 					
-				    $event->sheet->getDelegate()->getStyle($cellRange)->applyFromArray($styleArray);
-				}
+                    $event->sheet->getDelegate()->getStyle($cellRange)->applyFromArray($styleArray);
+                    $event->sheet->getStyle($cellRange)->getAlignment()->setWrapText(true); 
+                }
+ 
+
                 //-----------merge cho header
                 //
                 //plg xu ly bao cao mãu 2

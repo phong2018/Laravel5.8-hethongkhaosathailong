@@ -7,6 +7,12 @@
 </style>
 @endsection
 @section ('content')
+
+<?php 
+?>
+
+
+
     @if(session('messenger'))
     <span class='plgalertsuccess'>
     <div class="alert alert-success"><i class="fa fa-check-circle"></i>    
@@ -120,28 +126,83 @@
     <!-- ------->
     <div class="col-md-12 col-lg-12 col-xs-12">
         <div class="container"> 
-            <div  class=" " style=" overflow-x: auto;">
-            <h2 class='pdT15 pdB15'>Kết quả thống kê theo câu hỏi</h2>
-            <h4>Tổng số lượt khảo sát: {{$data['slThongke']}}</h4>
-            <table class='table bdcl'>
+            <!-- ---->
+            <ul class="nav nav-tabs"> 
                 <?php 
+                if(isset($data['arr_body']))
+                for($i=0;$i<count($data['arr_body']);$i++)
+                    if($i==0) echo '<li class="active"><a data-toggle="tab" href="#menu'.($i+1).'">Câu '.($i+1).'</a></li>';
+                    else echo '<li><a data-toggle="tab" href="#menu'.($i+1).'">Câu '.($i+1).'</a></li>';
+                ?> 
+            </ul>
+
+            <div class="tab-content">
+                <?php 
+                if(isset($data['arr_body']))
                 for($i=0;$i<count($data['arr_body']);$i++){
-                    echo '<tr>';
-                    foreach ($data['arr_body'][$i] as $no1 => $val1) {
-                        $w="style='width:".(100/($data['maxAns']+1))."%';"; 
-                        echo "<td ".$w.">".$val1."</td>";
-                    }
-                    echo '</tr>';
-                }
                 ?>
-            </table>
-            </div> 
+                    <div id="menu<?php echo ($i+1);?>" class="tab-pane fade <?php if($i==0) echo 'in  active';?>">
+                        <table   style="width:100%"><tr><td  >
+                        <?php 
+                        echo '<table border="1" style="width:100%"><tr>';
+                        foreach ($data['arr_body'][$i] as $no1 => $val1) {
+                            $w="style='width:".(100/($data['maxAns']+1))."%';"; 
+                            echo "<td ".$w.">".$val1."</td>";
+                        }
+                        echo '</tr></table>';
+                        ?>
+                        </td></tr><tr><td style="overflow:hidden"> 
+                          
+                        <div id="chartContainer<?php echo $i;?>" style="height: 300px; width: 100%;"></div>
+ 
+
+                        </td></tr></table>
+                    </div>
+                   
+                <?php  } ?> 
+                
+
+            </div>
         </div>
     </div> 
     <!-- ------->
 @endsection
 @section ('script') 
+<script>
+window.onload = function() {
+
+<?php if(isset($data['arr_body']))
+for($i=0;$i<count($data['arr_body']);$i++){?>        
+    var chart<?php echo $i;?> = new CanvasJS.Chart("chartContainer<?php echo $i;?>", {
+        animationEnabled: true,
+        title: {
+            text: " "
+        },
+        width:520,
+        height:290,
+        data: [{
+            type: "pie",    
+            indexLabel: "{label} {y}",
+            dataPoints: [
+                <?php foreach($lava[$i] as $val){ ?>
+                {y: <?php echo $val[1];?>, label: '<?php echo $val[0];?>'},
+                <?php } ?>
+            ]
+        }]
+    });
+    chart<?php echo $i;?>.render();
+<?php   }?>
+
+}
+</script> 
+<script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+
+
+
 <style>
+.tab-content{
+    min-height: 300px;
+}
 .svresult{
   width:  100%;
 }
