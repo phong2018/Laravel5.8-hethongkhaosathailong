@@ -66,7 +66,7 @@ session_start();
             <td width='1%'> 
                 <label class="containerrdob" style="margin-top:-17px;"> 
                   <input id="ques{{$noques}}ans{{$noans}}" type='radio' value='{{$ans->answer_id}}' name='question{{$ques->question_id}}'/>
-                  <span class="checkmarkrdob"></span>
+                  <span class="checkmarkrdob color<?php echo $noans;?>" ></span>
                 </label>
             </td>
             <td class='plghidden' width='1%'><strong><p>{{$arr[$noans]}}</p></strong></td>
@@ -422,6 +422,25 @@ $('form').submit(function (e) {
 .containerrdob input:checked ~ .checkmarkrdob {
   background-color: #2196F3;
 }
+.containerrdob input:checked ~ .color0{
+  background-color: #2196F3;
+}
+.containerrdob input:checked ~ .color1{
+  background-color: orange;
+}
+.containerrdob input:checked ~ .color2{
+  background-color: red;
+}
+.containerrdob input:checked ~ .color3{
+  background-color: red;
+}
+.containerrdob input:checked ~ .color4{
+  background-color: red;
+}
+.containerrdob input:checked ~ .color5{
+  background-color: red;
+}
+
 
 /* Create the indicator (the dot/circle - hidden when not checked) */
 .checkmarkrdob:after {

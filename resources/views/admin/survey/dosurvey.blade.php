@@ -73,7 +73,7 @@ session_start();
             <td width='1%'> 
                 <label class="containerrdob" style="margin-top:-17px;"> 
                   <input id="ques{{$noques}}ans{{$noans}}" type='radio' value='{{$ans->answer_id}}' name='question{{$ques->question_id}}'/>
-                  <span class="checkmarkrdob"></span>
+                  <span class="checkmarkrdob color<?php echo $noans;?>"></span>
                 </label>
             </td>
             <td class='plghidden' width='1%'><strong><p>{{$arr[$noans]}}</p></strong></td>
@@ -413,6 +413,7 @@ $('form').submit(function (e) {
   background-color: #eee;
   border-radius: 50%;
 }
+
 
 /* On mouse-over, add a grey background color */
 .containerrdob:hover input ~ .checkmarkrdob {
