@@ -146,7 +146,7 @@
                         <?php 
                         echo '<table border="1" style="width:100%"><tr>';
                         foreach ($data['arr_body'][$i] as $no1 => $val1) {
-                            $w="style='width:".(100/($data['maxAns']+1))."%';"; 
+                            $w="style='width:".(100/($data['maxAns']+1))."%;vertical-align:top';"; 
                             echo "<td ".$w.">".$val1."</td>";
                         }
                         echo '</tr></table>';
@@ -195,11 +195,14 @@ for($i=0;$i<count($data['arr_body']);$i++){?>
 
 }
 </script> 
-<script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+<script src="{{url('/')}}/public/plg/canvasjs.min.js"></script>
 
 
 
 <style>
+.canvasjs-chart-credit{
+    display: none;
+}
 .canvasjs-chart-container{
     text-align: center !important;
 }
@@ -211,6 +214,9 @@ canvas{
 }
 .svresult{
   width:  100%;
+}
+.hdes{
+   
 }
 .containerbar {
   width: 100%;

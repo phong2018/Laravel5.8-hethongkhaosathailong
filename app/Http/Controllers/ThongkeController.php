@@ -108,13 +108,22 @@ class ThongkeController extends Controller
                 $data['arr_body_excel'][$notk][]='<strong>Câu '.($notk+1).'</strong>:'.$question->question_description;
                 //-------
                 $value=array();
+                $mxl=0;
+                foreach($ans as $noans=>$a)
+                if($mxl<strlen(rtrim(html_entity_decode(strip_tags($a->answer_description))))) $mxl=strlen(rtrim((html_entity_decode(strip_tags($a->answer_description)))));
+
                 foreach($ans as $noans=>$a){
                     $tilept=$tk['ans'][$noans]/$data['slThongke']*100; 
-                    if($tk['ans'][$noans]==0) $tt=" <span style='color:#ddd;'></span>0%";
-                    else $tt="<span style='color:red;'></span>".$tk['ans'][$noans].'/'.$data['slThongke']." (".$tilept."%)";
+                    if($tk['ans'][$noans]==0) $tt="<div style='background:white;'><span style='color:#ddd;'></span>0%</div>";
+                    else $tt="<div style='background:white;'><span style='color:red;'></span>".$tk['ans'][$noans].'/'.$data['slThongke']." (".$tilept."%)</div>";
+
+                    $skt="<span style='color:white; word-break: break-all;'>";
+                    for($i=0;$i<$mxl-strlen(rtrim(html_entity_decode(strip_tags($a->answer_description))));$i++) $skt.="i";
+                    $skt.="</span>";
                     
-                    $data['arr_body'][$notk][]=$a->answer_description.$tt."<div class='w100'><div class='fl'></div><div class='fl w100'>"."<div class='w100' style='border:none;  '>"."<div class='containerbar  w100'>
-                    <div class='skillsbar html' style='width:".$tilept."%;'>"."</div></div></div>"."</div></div>";
+                    $data['arr_body'][$notk][]="<div class='hdes'>".rtrim(html_entity_decode(strip_tags($a->answer_description)))."&nbsp ".$skt."</div><div class='w100'><div class='fl'></div><div class='fl w100'>"."<div class='w100' style='border:none;  '>"."<div class='containerbar  w100'>"
+                    .$tt."<div class='skillsbar html' style='width:".$tilept."%;'>"."</div></div></div>"."</div></div>";
+
                     $data['arr_body_excel'][$notk][]=$a->answer_description."||".$tilept;
                     //lay du lieu cho bieu do
                     $value[]=array(rtrim(html_entity_decode(strip_tags($a->answer_description))),$tilept); 
