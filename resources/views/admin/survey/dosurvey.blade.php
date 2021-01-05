@@ -424,6 +424,24 @@ $('form').submit(function (e) {
 .containerrdob input:checked ~ .checkmarkrdob {
   background-color: #2196F3;
 }
+.containerrdob input:checked ~ .color0{
+  background-color: #2196F3;
+}
+.containerrdob input:checked ~ .color1{
+  background-color: orange;
+}
+.containerrdob input:checked ~ .color2{
+  background-color: red;
+}
+.containerrdob input:checked ~ .color3{
+  background-color: red;
+}
+.containerrdob input:checked ~ .color4{
+  background-color: red;
+}
+.containerrdob input:checked ~ .color5{
+  background-color: red;
+}
 
 /* Create the indicator (the dot/circle - hidden when not checked) */
 .checkmarkrdob:after {
