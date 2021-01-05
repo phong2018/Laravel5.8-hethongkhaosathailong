@@ -176,16 +176,16 @@ for($i=0;$i<count($data['arr_body']);$i++){?>
     var chart<?php echo $i;?> = new CanvasJS.Chart("chartContainer<?php echo $i;?>", {
         animationEnabled: true,
         title: {
-            text: " "
+            text: ""
         },
         width:520,
         height:290,
         data: [{
             type: "pie",    
-            indexLabel: "{label} {y}",
+            indexLabel: "{label} {y}%",
             dataPoints: [
-                <?php foreach($lava[$i] as $val){ ?>
-                {y: <?php echo $val[1];?>, label: '<?php echo $val[0];?>'},
+                <?php for($j=count($lava[$i])-1;$j>=0;$j--){ ?>
+                {y: <?php echo $lava[$i][$j][1];?>, label: '<?php echo $lava[$i][$j][0];?>'},
                 <?php } ?>
             ]
         }]
@@ -200,6 +200,12 @@ for($i=0;$i<count($data['arr_body']);$i++){?>
 
 
 <style>
+.canvasjs-chart-container{
+    text-align: center !important;
+}
+canvas{
+    position: relative !important;
+}
 .tab-content{
     min-height: 300px;
 }

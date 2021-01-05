@@ -110,11 +110,11 @@ class ThongkeController extends Controller
                 $value=array();
                 foreach($ans as $noans=>$a){
                     $tilept=$tk['ans'][$noans]/$data['slThongke']*100; 
-                    if($tk['ans'][$noans]==0) $tt=" <span style='color:#ddd;'>..</span>0%";
-                    else $tt="<span style='color:red;'>..</span>".$tk['ans'][$noans].'/'.$data['slThongke']." (".$tilept."%)";
+                    if($tk['ans'][$noans]==0) $tt=" <span style='color:#ddd;'></span>0%";
+                    else $tt="<span style='color:red;'></span>".$tk['ans'][$noans].'/'.$data['slThongke']." (".$tilept."%)";
                     
-                    $data['arr_body'][$notk][]=$a->answer_description."<div class='w100'><div class='fl'></div><div class='fl w100'>"."<div class='w100' style='border:none;  '><div class='containerbar  w100'>
-                    <div class='skillsbar html' style='width:".$tilept."%;'>".$tt."</div></div></div>"."</div></div>";
+                    $data['arr_body'][$notk][]=$a->answer_description.$tt."<div class='w100'><div class='fl'></div><div class='fl w100'>"."<div class='w100' style='border:none;  '>"."<div class='containerbar  w100'>
+                    <div class='skillsbar html' style='width:".$tilept."%;'>"."</div></div></div>"."</div></div>";
                     $data['arr_body_excel'][$notk][]=$a->answer_description."||".$tilept;
                     //lay du lieu cho bieu do
                     $value[]=array(rtrim(html_entity_decode(strip_tags($a->answer_description))),$tilept); 
