@@ -166,6 +166,7 @@ class OrganizationController extends Controller
         $org->org_nhanemail= $request->org_nhanemail;
         $org->org_phone= $request->org_phone;
         $org->org_order= $request->org_order;
+        $org->org_note1=$request->org_pthailong.','.$request->org_ptbinhthuong;
         $org->org_isSelectEmp= $request->org_isSelectEmp;
         $org->org_isActived= $request->org_isActived;
         $org->org_chudebatbuoc= $request->org_chudebatbuoc;
@@ -257,6 +258,7 @@ class OrganizationController extends Controller
         $org->org_order= $request->org_order;
         $org->org_isSelectEmp= $request->org_isSelectEmp;
         $org->org_isActived= $request->org_isActived;
+        $org->org_note1=$request->org_pthailong.','.$request->org_ptbinhthuong;
         $org->org_chudebatbuoc= $request->org_chudebatbuoc;
         $org->save();
         return redirect('admin/organization')->with('messenger', 'Cập nhật Đơn vị Thành Công');

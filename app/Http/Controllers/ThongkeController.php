@@ -113,7 +113,7 @@ class ThongkeController extends Controller
                 if($mxl<strlen(rtrim(html_entity_decode(strip_tags($a->answer_description))))) $mxl=strlen(rtrim((html_entity_decode(strip_tags($a->answer_description)))));
 
                 foreach($ans as $noans=>$a){
-                    $tilept=$tk['ans'][$noans]/$data['slThongke']*100; 
+                    $tilept=number_format($tk['ans'][$noans]/$data['slThongke']*100,1); 
                     if($tk['ans'][$noans]==0) $tt="<div style='background:white;'><span style='color:#ddd;'></span>0%</div>";
                     else $tt="<div style='background:white;'><span style='color:red;'></span>".$tk['ans'][$noans].'/'.$data['slThongke']." (".$tilept."%)</div>";
 

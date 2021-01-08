@@ -1655,9 +1655,149 @@ class SurveyController extends Controller
         return $tinhdiem;
     }
 
+    //--------
+    public function tinhThongkeTch($results){
+     
+    }
+
+    public function slideresult($orgid){
+        $this->xuatexcel=0;
+        $org=Organization::find($orgid);
+        $temp=explode(',',$org->org_note1);
+        $org->org_pthailong=$temp[0];
+        $org->org_ptbinhthuong=$temp[1];
+
+        $_GET['filter_survey_idorglv1']=$orgid;
+        $_GET['filter_survey_topic_id']=$org->org_topic_id;
+
+
+        $survey = Survey::orderBy('survey_id', 'ASC');
+        
+        
+        $data=array(
+            'filter_survey_topic_id'=>0, 
+            'filter_survey_idObject'=>0,
+            'filter_survey_idorglv1'=>0,
+            'filter-input-ngaykhaosat'=>'',
+            'filter_ngaykhaosat_tungay'=>date("Y-m-d"),
+            'filter_ngaykhaosat_denngay'=>date("Y-m-d"),
+        );
+
+        $_GET['filter_ngaykhaosat_tungay']=date("Y-m-d");
+        $_GET['filter_ngaykhaosat_denngay']=date("Y-m-d");
+
+        // trường họp chọn đt khảo sát cụ thể
+        
+        if(isset($_GET['filter_survey_idObject']) && $_GET['filter_survey_idObject']!=0){
+            $survey= $survey->where('survey_idObject', '=', $_GET['filter_survey_idObject']);
+            $data['filter_survey_idObject']=$_GET['filter_survey_idObject'];
+        }
+
+        if(isset($_GET['filter_survey_idorglv1']) && $_GET['filter_survey_idorglv1']!=0){ 
+            $data['filter_survey_idorglv1']=$_GET['filter_survey_idorglv1'];
+            $survey= $survey->where('survey_idorglv1', '=', $_GET['filter_survey_idorglv1']);
+        }
+
+    
+        //-----
+        if(isset($_GET['filter-input-ngaykhaosat']) && $_GET['filter-input-ngaykhaosat']!=''){
+            $data['filter-input-ngaykhaosat']=$_GET['filter-input-ngaykhaosat'];
+        }
+
+        /*kiểm tra có tìm kiểm theo ngày nhận*/
+        if(isset($_GET['filter-input-ngaykhaosat']) && $_GET['filter-input-ngaykhaosat']!=''){
+            $data['filter-input-ngaykhaosat']=$_GET['filter-input-ngaykhaosat'];
+        }
+        if($data['filter-input-ngaykhaosat']>0 || 1==1){
+            //check   từ ngày
+            if(isset($_GET['filter_ngaykhaosat_tungay']) && $_GET['filter_ngaykhaosat_tungay']!=''){
+                $survey= $survey->where('survey_created_at', '>=', date($_GET['filter_ngaykhaosat_tungay']));
+                $data['filter_ngaykhaosat_tungay']=$_GET['filter_ngaykhaosat_tungay'];
+            }
+            //check   den ngày
+            if(isset($_GET['filter_ngaykhaosat_denngay']) && $_GET['filter_ngaykhaosat_denngay']!=''){
+                $survey= $survey->where('survey_created_at', '<=', date($_GET['filter_ngaykhaosat_denngay']));
+                $data['filter_ngaykhaosat_denngay']=$_GET['filter_ngaykhaosat_denngay'];
+            }
+
+           // $survey=$survey->get();
+          //  echo count($survey);
+           // die;
+        }
+             
+        $thongke=array();
+        $data['count_survey']=0;
+        $arr_header=array();
+        $arr_body=array();
+
+        $data['ans0']=0;
+        $data['ans1']=0;
+        $data['ans2']=0;
+
+        // bắt buộc phải chọn chủ đề để thống kê
+        if(isset($_GET['filter_survey_topic_id']) && $_GET['filter_survey_topic_id']!=0){
+            $topic=Topic::find($_GET['filter_survey_topic_id']);
+
+            $question = Question::orderBy('question_order', 'asc')->where("question_idTopic",$_GET['filter_survey_topic_id'])->where("question_isActived",1)->get();
+
+            $this->count_question=count($question);
+
+
+            $survey= $survey->where('survey_isActived',1);
+            
+            $survey= $survey->where('survey_idTopic', '=', $_GET['filter_survey_topic_id']);
+            $data['filter_survey_topic_id']=$_GET['filter_survey_topic_id'];
+            $svs=$survey->get(); 
+            $temp=$this->tinhThongkeTch($survey);
+            
+            //echo count($survey);
+            foreach($svs as $sur){
+                $tongmark=0;
+                $mark=0;
+                $checktenhat=false;
+                //-----------
+                $rs=Result::where('result_idSurvey', $sur->survey_id)->get();
+                foreach($rs as $r){
+                    $q=Question::find($r->result_idQuestion);
+                    $a=Answer::find($r->result_Answer);
+                    $tongmark+=$q->question_scores;
+                    $mark+=$a->answer_scores;
+                    if($r->resultSelected==2)$checktenhat=true; 
+                }
+                //------------tinh độ hai lòng
+                if((($mark/$tongmark)*100>=$org->org_pthailong) && !$checktenhat) $data['ans0']++;
+                else if((($mark/$tongmark)*100>=$org->org_ptbinhthuong) && !$checktenhat) $data['ans1']++;
+                else $data['ans2']++;
+            }
+        }
+        else $survey=array();
+
+        $data['title']='Kết quả khảo sát';
+
+        //tạo breadcumbs
+        $data['breadcrumbs'] = array();
+        $data['breadcrumbs'][] = array(
+            'text' =>'Trang chủ',
+            'href' => url("/admin")
+        );
+        $data['breadcrumbs'][] = array(
+            'text' => $data['title'],
+            'href' => url("/admin/survey/surveyresult"),
+        );
+        //'data'=>$data, 
+
+
+         
+
+        $topic = Topic::all();
+
+        $data['orgsv']=$orgid;
+
+        return view('admin.survey.SlideTktCauhoi',['data'=>$data,'arr_body'=>$arr_body,'arr_header'=>$arr_header,'thongke'=>$thongke,'survey'=>$survey,'topic'=>$topic  ]);
+    }
 
     //thống kê, và xuât excel
-    public function slideresult($orgid){
+    public function slideresult1($orgid){
         $this->xuatexcel=0;
         $org=Organization::find($orgid);
 

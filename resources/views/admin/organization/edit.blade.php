@@ -216,6 +216,35 @@
                                     @endif
                                 </div>
                             </div>
+
+                            <div class="form-group row">
+                                <?php
+                                $temp=explode(",",$org->org_note1);
+                                $org->org_pthailong=$temp[0];
+                                $org->org_ptbinhthuong=$temp[1];
+                                ?>
+                                <label for="org_order" class="col-md-2 col-form-label text-md-right">{{ __('% Hài lòng') }}</label>
+
+                                <div class="col-md-4">
+                                    <input placeholder="Phần trăm hài lòng" value="{{$org->org_pthailong}}" id="org_pthailong" type="number" class="form-control{{ $errors->has('org_pthailong') ? ' is-invalid' : '' }}" name="org_pthailong" required>
+
+                                    @if ($errors->has('org_pthailong'))
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $errors->first('org_pthailong') }}</strong>
+                                    </span>
+                                    @endif
+                                </div>
+                                <label for="org_order" class="col-md-2 col-form-label text-md-right">{{ __('% Bình thường') }}</label>
+                                <div class="col-md-4">
+                                    <input placeholder="Phần trăm bình thường" value="{{$org->org_ptbinhthuong}}"  id="org_ptbinhthuong" type="number" class="form-control{{ $errors->has('org_ptbinhthuong') ? ' is-invalid' : '' }}" name="org_ptbinhthuong" required>
+
+                                    @if ($errors->has('org_ptbinhthuong'))
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $errors->first('org_ptbinhthuong') }}</strong>
+                                    </span>
+                                    @endif
+                                </div>
+                            </div>
                             <div class="form-group row plghidden">
                                 <label for="org_isSelectEmp" class="col-md-2 col-form-label text-right"><span data-toggle="tooltip" data-container="" title="" data-original-title="Người dân phải chọn nhân viên để tiến hành khảo sát. Dành cho Chủ đề khảo sát đối với cá nhân">{{ __('Người dân phải Chọn nhân viên khảo sát') }} <i class="fa fa-question-circle"></i></span></label>
                                 <div class="col-md-10">

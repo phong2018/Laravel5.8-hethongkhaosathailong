@@ -153,8 +153,8 @@
                         ?>
                         </td></tr><tr><td style="overflow:hidden"> 
                           
-                        
-                        <div id="piechart<?php echo $i?>" style="width: 800; height: 400px;text-align:center"></div>
+                        <div id="chartContainer<?php echo $i;?>" style="height: 300px; width: 100%;"></div>
+ 
 
                         </td></tr></table>
                     </div>
@@ -167,62 +167,39 @@
     </div> 
     <!-- ------->
 @endsection
-@section ('script')  
+@section ('script') 
+<script>
+window.onload = function() {
 
+<?php if(isset($data['arr_body']))
+for($i=0;$i<count($data['arr_body']);$i++){?>        
+    var chart<?php echo $i;?> = new CanvasJS.Chart("chartContainer<?php echo $i;?>", {
+        animationEnabled: true,
+        title: {
+            text: ""
+        },
+        width:520,
+        height:290,
+        data: [{
+            type: "pie",    
+            indexLabel: "{label} {y}%",
+            dataPoints: [
+                <?php for($j=count($lava[$i])-1;$j>=0;$j--){ ?>
+                {y: <?php echo $lava[$i][$j][1];?>, label: '<?php echo $lava[$i][$j][0];?>'},
+                <?php } ?>
+            ]
+        }]
+    });
+    chart<?php echo $i;?>.render();
+<?php   }?>
 
-<script type="text/javascript" src="{{url('/')}}/public/plg/loader.js"></script>
-    <script type="text/javascript">
-      google.charts.load('current', {'packages':['corechart']});
-      google.charts.setOnLoadCallback(drawChart);
-
-      function drawChart() {
-        <?php 
-        if(isset($data['arr_body']))
-        for($i=0;$i<count($data['arr_body']);$i++){
-        ?>
-            var data<?php echo $i?> = google.visualization.arrayToDataTable([
-            [' ', ' '],
-            <?php for($j=0;$j<count($lava[$i]);$j++){ ?>
-            ['<?php echo $lava[$i][$j][0];?>', <?php echo number_format($lava[$i][$j][1],1);?> ],
-            <?php } ?>
-            ]); 
-
-            var options<?php echo $i?> = {
-            title: ' ',
-            width: 800,
-            height: 400,    
-            pieSliceText:'none', 
-            
-            };
-
- 
-            
-            var chart<?php echo $i?> = new google.visualization.PieChart(document.getElementById('piechart<?php echo $i?>'));
-
-            chart<?php echo $i?>.draw(data<?php echo $i?>, options<?php echo $i?>);
- 
-            temp= $("#piechart<?php echo $i?> g > text").html();
-
-            console.log(temp,"=============");
-            
-        <?php } ?>
-      }
-     
-    </script>
-  </head>
-  
-    
- 
+}
+</script> 
+<script src="{{url('/')}}/public/plg/canvasjs.min.js"></script>
 
 
 
 <style>
-
-#piechart1 text{
-    margin-right: 20px !important;
-}
-
-
 .canvasjs-chart-credit{
     display: none;
 }
