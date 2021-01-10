@@ -1136,6 +1136,33 @@ class SurveyController extends Controller
         return redirect(url('survey/selectorg/'.$orgid));
     }
 
+    function tinhMucdoHailong($surveyid,$idorg){
+        $tongmark=0;
+        $mark=0;
+        $checktenhat=false;
+        //-----------
+        $org = Organization::find($idorg);
+        $temp=explode(',',$org->org_note1);
+        $org->org_pthailong=$temp[0];
+        $org->org_ptbinhthuong=$temp[1];
+
+        $rs=Result::where('result_idSurvey', $surveyid)->get();
+        foreach($rs as $r){
+            $q=Question::find($r->result_idQuestion);
+            $a=Answer::find($r->result_Answer);
+            $tongmark+=$q->question_scores;
+            $mark+=$a->answer_scores;
+            if($r->resultSelected==2)$checktenhat=true; 
+        }
+        //------------tinh độ hai lòng
+        if((($mark/$tongmark)*100>=$org->org_pthailong) && !$checktenhat) return 1;
+        else if((($mark/$tongmark)*100>=$org->org_ptbinhthuong) && !$checktenhat) return 2;
+        else return 3;
+       /* if((($mark/$tongmark)*100>=$org->org_pthailong) && !$checktenhat) return $mark.'-'.$tongmark.'-'.$org->org_pthailong.'-'.$org->org_ptbinhthuong.'-'.$idorg;
+        else if((($mark/$tongmark)*100>=$org->org_ptbinhthuong) && !$checktenhat) return $mark.'-'.$tongmark.'-'.$org->org_pthailong.'-'.$org->org_ptbinhthuong.'-'.$idorg;
+        else return $mark.'-'.$tongmark.'-'.$org->org_pthailong.'-'.$org->org_ptbinhthuong.'-'.$idorg;*/
+    }
+
     public function surveysave(Request $request){
         $topicid=$request->topicid;
         $objectid=$request->objectid;
@@ -1180,8 +1207,9 @@ class SurveyController extends Controller
         else{
             $survey=Survey::find($request->surveytid);      
             $survey->survey_isActived=1;
-            //== lưu xem có survey này có bị khoogn hài lòng không
-            $survey->survey_note1=$request->checkkhonghailong;
+            //== lưu xem có survey này có bị khoogn hài lòng không (sử dụng js để check)
+            //$survey->survey_note1=$request->checkkhonghailong;
+            $survey->survey_note1=$this->tinhMucdoHailong($request->surveytid,$request->survey_idorglv1);
 
             $survey->survey_customer=$request->customer;
             $survey->survey_idorglv1=$request->survey_idorglv1;
@@ -1248,17 +1276,8 @@ class SurveyController extends Controller
             }
         }
         //-------------xét sự hài lòng
-        if(isset($_GET['filter_suhailong'])){
-            if($_GET['filter_suhailong']==2)/*chưa hài lòng*/
-            $survey= $survey->where(function($q) {
-                             $q->where('survey_note1', '=','2')
-                               ->orwhere('survey_note1', '=','1')
-                             ;});
-            if($_GET['filter_suhailong']==1)/*hài lòng*/
-            $survey= $survey->where(function($q) {
-                             $q->where('survey_note1', '=','0') 
-                               ->orwhere('survey_note1', NULL)
-                             ;});
+        if(isset($_GET['filter_suhailong']) && $_GET['filter_suhailong']>0){
+            $survey= $survey->where('survey_note1',$_GET['filter_suhailong']);
             $data['filter_suhailong']=$_GET['filter_suhailong'];
         }
         

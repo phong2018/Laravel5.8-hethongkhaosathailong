@@ -36,7 +36,7 @@ session_start();
     <input type='number' class='plghidden' name="topicid" value="{{$topic->topic_id}}" />
     <input type='number' class='plghidden' name="objectid" value="{{$objectid}}" />
     <input type='number' class='plghidden' name="surveytid" value="{{$survey->survey_id}}" />
-    <input type='number' class='plghidden' id="orgidlv1" name="survey_idorglv1" value="" />
+    <input type='number' class='plghidden' id="orgidlv1" name="survey_idorglv1" value="{{$objectid}}" />
     
     <div id='infonv' class="col-xs-12 col-sm-12 col-md-12 col-lg-12 khunghinhnvks" style="padding-bottom: 00px;padding-top: 0px;margin-bottom: 10px;border:none;" >
         <img class='plghidden' style="width: 100%;padding:5px 5px 5px 5px;" src="{{url('/')}}/public{{$data['thumbob']}}"/>

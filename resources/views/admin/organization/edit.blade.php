@@ -220,8 +220,8 @@
                             <div class="form-group row">
                                 <?php
                                 $temp=explode(",",$org->org_note1);
-                                $org->org_pthailong=$temp[0];
-                                $org->org_ptbinhthuong=$temp[1];
+                                if(isset($temp[0]))$org->org_pthailong=$temp[0];
+                                if(isset($temp[1]))$org->org_ptbinhthuong=$temp[1];
                                 ?>
                                 <label for="org_order" class="col-md-2 col-form-label text-md-right">{{ __('% Hài lòng') }}</label>
 

@@ -85,6 +85,9 @@
                      >Hài lòng</option>
                      <option value="2"
                      <?php if($data['filter_suhailong']==2) echo "selected"; ?>
+                     >Bình thường</option>
+                     <option value="3"
+                     <?php if($data['filter_suhailong']==3) echo "selected"; ?>
                      >Chưa hài lòng</option>
 
                 </select>
