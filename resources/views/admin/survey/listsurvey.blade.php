@@ -88,7 +88,7 @@
                      >Bình thường</option>
                      <option value="3"
                      <?php if($data['filter_suhailong']==3) echo "selected"; ?>
-                     >Chưa hài lòng</option>
+                     >Không hài lòng</option>
 
                 </select>
               </div>
@@ -123,7 +123,14 @@
 					</table>
 					<table class='pull-right bordernone '>
 						 
-						<tr><td style="padding-top: 5px;"> 
+						<tr>
+            <td style="padding-top: 5px;" class=' '>
+        <button type="submit" name="xuatexcel" class="btn btn-primary">  <i style="" class="fa fa-file-excel-o" aria-hidden="true"></i> Xuất Excel Ds Khách hàng</button> 
+        </td>
+        <td style="padding-top: 5px;" class=' '>
+        <button type="submit" name="xuatexceltkks" class="btn btn-primary">  <i style="" class="fa fa-file-excel-o" aria-hidden="true"></i> Xuất Excel Tổng kết khảo sát</button> 
+        </td>
+            <td style="padding-top: 5px;"> 
 						<button type="submit" id="button-filter" class="btn btn-primary"><i class="fa fa-search"></i> Thống Kê</button> 
 						</td><td >&nbsp </td><td style="padding-top: 5px;" class=' '>
 						<button type="submit" name="xoadulieu" class="btn btn-primary"  onClick="return checkform();"> <i class="fa fa-trash-o "></i> Xóa Dữ Liệu</button> 

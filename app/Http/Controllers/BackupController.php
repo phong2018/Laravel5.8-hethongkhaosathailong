@@ -68,6 +68,9 @@ class BackupController extends Controller
     	$bk=Backup::find($id);
     	echo $bk->url;
 
+    }
+    public function updatedb(){
+         
     }	
 
     

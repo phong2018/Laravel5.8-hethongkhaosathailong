@@ -233,7 +233,7 @@ function chonans(noques,noans,cc=0,dapans=""){
     $(idquesansdes).css({"font-weight": "bold", "color": "blue"});
 
     dapans = dapans.toLowerCase();
-    if(dapans.includes("bình thường") || dapans.includes("không hài")){
+    if(dapans.includes("bình thường") || dapans.includes("không hài") || dapans.includes("chưa hài") || noans>1){
         arrcheckans[cc]=0;  
         //alert(dapans);
     }
@@ -301,23 +301,33 @@ function checkdanhgiakhonghailong(){
    for(i=1;i<arrcheckans.length;i++)
    if(arrcheckans[i]==0){
        //alert('co ko hai long');
-       $("#idcheckkhonghailong").val(1);
+       $("#idcheckkhonghailong").val(3);
+       console.log('checkdanhgiakhonghailong:',true);
        return true;
 
    }
+   //--=======
    $("#idcheckkhonghailong").val(0);
+   console.log('checkdanhgiakhonghailong:',false);
    return false;
 }
  
+var a0="";a1="";a2="";
 //delay sumbmit
 $('form').submit(function (e) {
-    if($('input:radio:checked').length>={{count($question)}}){
+    if($('input:radio:checked').length>={{count($question)}} && !checkdanhgiakhonghailong() ){
         if(countplay==0){
             countplay++;
             document.getElementById('amthanhcamcon').play();
         }
     }
-    else  Swal.fire("Quý khách chưa đánh giá đủ các câu hỏi, vui lòng đánh giá tiếp!");
+    else {
+      if($('input:radio:checked').length<{{count($question)}}){
+        Swal.fire("Quý khách chưa đánh giá đủ các câu hỏi, vui lòng đánh giá tiếp!");
+        return false;
+      }
+      
+    }
 
      
     var form = this;
@@ -325,7 +335,7 @@ $('form').submit(function (e) {
 
     setTimeout(function () {
       
-      if($('input:radio:checked').length=={{count($question)}} && $("#ttkh").val()=="" && checkdanhgiakhonghailong()){
+      if($('input:radio:checked').length=={{count($question)}} && checkdanhgiakhonghailong()  ){
         checkkhongclicksave=0;
         (async () => {
             //alert('chaylai:'+khongchaylai);
@@ -334,9 +344,9 @@ $('form').submit(function (e) {
               timer: {{($data['config_time_auto_direct']*1000)}}*10,
               confirmButtonText:'Gửi',
               html:
-                '<input id="swal-input1" placeholder="Họ tên" class="swal2-input">' +
-                '<input id="swal-input2" placeholder="Số điện thoại" class="swal2-input">' +
-                '<input id="swal-input3" placeholder="Thông tin khác (số biên nhân, số căn cước...)" class="swal2-input">' 
+                '<input id="swal-input1" placeholder="Họ tên" value="'+a0+'" class="swal2-input">' +
+                '<input id="swal-input2" placeholder="Số điện thoại" value="'+a1+'" class="swal2-input">' +
+                '<input id="swal-input3" value="'+a2+'" placeholder="Thông tin khác (số biên nhân, số căn cước...)" class="swal2-input">' 
                 ,
               focusConfirm: false,
               preConfirm: () => {
@@ -349,27 +359,40 @@ $('form').submit(function (e) {
               },
               onClose: () => {
                 //alert(2);
-                form.submit();
+                //form.submit();
               }
             })
-
+            var arr = ["", "", ""];
             if (formValues) {
               //alert(JSON.stringify(formValues));
               arr=JSON.parse(JSON.stringify(formValues));
               //alert(arr[0]+"; "+arr[1]+"; "+arr[2]);
-              if(arr[0]!="" || arr[1]!="" || arr[2]!="")
+              if( arr[1]!="")
               $("#ttkh").val(arr[0]+"; "+arr[1]+"; "+arr[2]);
             }
+            a0=arr[0];a1=arr[1];a2=arr[2];
+            console.log(a0,'--',a1,'--',a2)
+
+            if(arr[1]==""){
+              Swal.fire("Quý khách vui lòng nhập số điện thoại!");
+            }
             
-            if(validateForm())
-            form.submit();
+            if(validateForm() && arr[1]!="" ){
+              document.getElementById('amthanhcamcon').play();
+              console.log('submit luon:');
+              form.submit();
+            }
           })()
       }
       else 
-      if(validateForm())
+      if( ((a1!="")|| !checkdanhgiakhonghailong()))
             form.submit();
+      else{
+        console.log('arrcheckans',arrcheckans);
+        Swal.fire("Quý khách vui lòng nhập đầy đủ thông tin!");
+      }
 
-    }, 1); // in milliseconds
+    }, 1000); // in milliseconds
      
 });
 

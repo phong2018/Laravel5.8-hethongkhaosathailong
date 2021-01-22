@@ -31,6 +31,7 @@ class ThongkeController extends Controller
         DB::connection()->getPdo()->exec("ALTER TABLE `ks_result` ADD `resultSelected` VARCHAR(100) NULL AFTER `result_Answer`;
         ");
     }
+    
     //----
     public function tkTheoCauhoi(){
         $data=array();

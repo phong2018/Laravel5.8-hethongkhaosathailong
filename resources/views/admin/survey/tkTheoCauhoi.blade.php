@@ -112,6 +112,7 @@
         <table class='pull-right bordernone '>
 
         <tr><td style="padding-top: 5px;"> 
+        <a class='btn btn-primary' href="{{ route('survey.updatemucdohailong')}} " href="survey/updateMucdoHailong">Cập nhật Khảo sát</a>
         <button type="submit" id="button-filter" class="btn btn-primary"><i class="fa fa-search"></i> Thống Kê</button> 
         </td><td >&nbsp </td><td style="padding-top: 5px;" class=' '>
         <button type="submit" name="xuatexcel" class="btn btn-primary">  <i style="" class="fa fa-file-excel-o" aria-hidden="true"></i> Xuất Excel</button> 

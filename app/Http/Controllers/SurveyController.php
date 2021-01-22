@@ -1155,12 +1155,13 @@ class SurveyController extends Controller
             if($r->resultSelected==2)$checktenhat=true; 
         }
         //------------tinh độ hai lòng
-        if((($mark/$tongmark)*100>=$org->org_pthailong) && !$checktenhat) return 1;
+        /*if((($mark/$tongmark)*100>=$org->org_pthailong) && !$checktenhat) return $mark.'-'.$tongmark.'-'.$org->org_pthailong.'-'.$org->org_ptbinhthuong.'-'.$idorg.'--1';
+        else if((($mark/$tongmark)*100>=$org->org_ptbinhthuong) && !$checktenhat) return $mark.'-'.$tongmark.'-'.$org->org_pthailong.'-'.$org->org_ptbinhthuong.'-'.$idorg.'--2';
+        else return $mark.'-'.$tongmark.'-'.$org->org_pthailong.'-'.$org->org_ptbinhthuong.'-'.$idorg.'--3'; */
+
+       if((($mark/$tongmark)*100>=$org->org_pthailong) && !$checktenhat) return 1;
         else if((($mark/$tongmark)*100>=$org->org_ptbinhthuong) && !$checktenhat) return 2;
         else return 3;
-       /* if((($mark/$tongmark)*100>=$org->org_pthailong) && !$checktenhat) return $mark.'-'.$tongmark.'-'.$org->org_pthailong.'-'.$org->org_ptbinhthuong.'-'.$idorg;
-        else if((($mark/$tongmark)*100>=$org->org_ptbinhthuong) && !$checktenhat) return $mark.'-'.$tongmark.'-'.$org->org_pthailong.'-'.$org->org_ptbinhthuong.'-'.$idorg;
-        else return $mark.'-'.$tongmark.'-'.$org->org_pthailong.'-'.$org->org_ptbinhthuong.'-'.$idorg;*/
     }
 
     public function surveysave(Request $request){
@@ -1216,7 +1217,7 @@ class SurveyController extends Controller
 
             $survey->save();
 
-            if($request->checkkhonghailong==1){
+            if($request->checkkhonghailong==3){
                 $this->guiemaildanhgiakhonghailong($request->surveytid,$request->survey_idorglv1);
             }
         }
@@ -1225,8 +1226,16 @@ class SurveyController extends Controller
     }
 
     public function listsurvey(){
+
+       
+        //DB::connection()->getPdo()->exec("ALTER TABLE `ks_survey`  DROP COLUMN `survey_note1`;");
+        //DB::connection()->getPdo()->exec("ALTER TABLE `ks_survey` ADD `survey_note1` INT NOT NULL;");
+        //DB::connection()->getPdo()->exec("ALTER TABLE `ks_survey` CHANGE `survey_note1` `survey_note1` varchar(5) CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL DEFAULT NULL;");
+        //DB::connection()->getPdo()->exec("ALTER TABLE `ks_survey` ADD INDEX(`survey_note1`);");
+         
+        
       
-         $survey = Survey::orderBy('survey_id', 'DESC');
+         $survey = Survey::orderBy('survey_created_at', 'ASC');
          $survey= $survey->where('survey_isActived',1);
 
          //&filter_orgidlv1=31&filter-input-ngaykhaosat=1&filter_ngaykhaosat_tungay=2019-11-13&filter_ngaykhaosat_denngay=2019-11-13
@@ -1312,11 +1321,112 @@ class SurveyController extends Controller
          
 
         //-----
-        /*kiểm tra có tìm kiểm theo ngày nhận*/
-        
-  
-          
-        if(isset($_GET['xoadulieu']))  {
+        /*xuat ds excel tổng kết thông kê theo ngày*/
+        if(isset($_GET['xuatexceltkks']))  {//xuất excel
+            $datatkks=array();
+            $survey= $survey->get();
+            foreach($survey as $no=>$vr){  
+                $ngay=strtotime($vr->survey_created_at);
+                //------
+                if(isset($datatkks[$ngay]['soluong']))
+                $datatkks[$ngay]['soluong']++;
+                else $datatkks[$ngay]['soluong']=1;
+                //------
+                $temp=$this->tinhMucdoHailong($vr->survey_id,$vr->survey_idorglv1);
+                //------ temp=1/2/3 
+                if(isset($datatkks[$ngay][$temp]))
+                $datatkks[$ngay][$temp]++;
+                else $datatkks[$ngay][$temp]=1;
+            }
+            //--------xuat excel
+            $sheet_col='I';  
+            //==========
+            
+            $arr_header=['#','Thời gian','Số Khảo sát','Hài lòng','','Bình thường','','Không hài lòng',''];
+            $sheet_header=[['BÁO CÁO KHẢO SÁT THEO KHÁCH HÀNG'],$arr_header];
+            //$survey= $survey->get();
+            //$sheet_header=[['BÁO CÁO KHẢO SÁT THEO KHÁCH HÀNG'],$arr_header];
+            //$survey= $survey->get();
+            //$arr_body=array(array('a1','a2','a3'),array('b1','b2','b3'));
+            $arr_body=array();
+            $arr_body[]=array('','','','số lượng','Tỉ lệ','số lượng','Tỉ lệ','số lượng','Tỉ lệ');
+            foreach($datatkks as $ngay=>$valtkks){
+                if(isset($valtkks['soluong'])) $sl=$valtkks['soluong'];else $sl=0;
+                if(isset($valtkks[1])) $sl1=$valtkks[1];else $sl1='0';
+                if(isset($valtkks[2])) $sl2=$valtkks[2];else $sl2='0';
+                if(isset($valtkks[3])) $sl3=$valtkks[3];else $sl3='0';
+                $v=array('',date("d/m/Y",$ngay),$sl,$sl1,number_format(($sl1/$sl)*100)."%",$sl2,number_format(($sl2/$sl)*100)."%",$sl3,number_format(($sl3/$sl)*100)."%");
+                $arr_body[]=$v;
+            }
+
+            $arr_body[]=array();
+            //-----
+            $sheet_data= collect($arr_body);
+            //---------
+            $tex=new ExcelExport;
+            $tex->sheet_col=$sheet_col;
+            $tex->sheet_data=$sheet_data;
+            $tex->sheet_header=$sheet_header;
+            $filename='Report-Survey-'.date("d-m-Y-H-i-s").'.xlsx';
+            return Excel::download($tex, $filename);
+        }
+        else
+        if(isset($_GET['xuatexcel']))  {//xuất excel
+            $sheet_col='C';  
+            //==========
+            $arr_header=['#','Khách hàng','Mức độ hài lòng'];
+            $sheet_header=[['BÁO CÁO KHẢO SÁT THEO KHÁCH HÀNG'],$arr_header];
+            $survey= $survey->get();
+            //$arr_body=array(array('a1','a2','a3'),array('b1','b2','b3'));
+            $arr_body=array();
+            $arr1=array();
+            $arr2=array();
+            $arr3=array();
+            foreach($survey as $no=>$vr){  
+                $v=array(); 
+                $v[]=$vr->survey_customer;
+                $temp=$this->tinhMucdoHailong($vr->survey_id,$vr->survey_idorglv1);
+                if($temp==1){
+                    $v[]='Hài lòng';
+                    $arr1[]=$v;
+                }else if($temp==2){
+                    $v[]='Bình thường';
+                    $arr2[]=$v;
+                }else{
+                    $v[]='Không hài lòng';
+                    $arr3[]=$v;
+                }
+            }
+            //--------
+            $c=0;
+            foreach($arr1 as $v){
+                $vt=array();
+                $c++;$vt[]=$c;$vt[]=$v[0];$vt[]=$v[1];
+                $arr_body[]=$vt;
+            }
+            foreach($arr2 as $v){
+                $vt=array();
+                $c++;$vt[]=$c;$vt[]=$v[0];$vt[]=$v[1];
+                $arr_body[]=$vt;
+            }
+            foreach($arr3 as $v){
+                $vt=array();
+                $c++;$vt[]=$c;$vt[]=$v[0];$vt[]=$v[1];
+                $arr_body[]=$vt;
+            }
+            $arr_body[]=array();
+            //-----
+            $sheet_data= collect($arr_body);
+            //---------
+            $tex=new ExcelExport;
+            $tex->sheet_col=$sheet_col;
+            $tex->sheet_data=$sheet_data;
+            $tex->sheet_header=$sheet_header;
+            $filename='Report-Survey-'.date("d-m-Y-H-i-s").'.xlsx';
+            return Excel::download($tex, $filename);
+             
+        }///xoa du lieu
+        else if(isset($_GET['xoadulieu']))  {
              $survey= $survey->get();
             foreach($survey as $sur){
                 
@@ -1454,6 +1564,7 @@ class SurveyController extends Controller
 
         return $header;
     }
+    
 
     public function tinhthongke($survey){
         $thongke=array();
@@ -1518,6 +1629,43 @@ class SurveyController extends Controller
 
         }
         return $thongke;
+    }
+
+    //-----
+    public function updateMucdoHailong1(){
+        echo 'vvv';
+    }
+    public function updateMucdoHailong(){
+        //lọc lại thwo cấp quản lý nếu ko phải admin
+        $tempus=User::find(Auth::id());
+        
+        $surveys= Survey::where('survey_isActived', 1);
+        
+        //ko phải admin
+        if($tempus->user_level>1){ 
+           $orgt=Organization::where('org_id',$tempus->user_IdOrg)->get()->first();
+           //========
+           if($orgt->org_level==2){
+              $orgp=Organization::orderBy('org_id', 'DESC')->where('org_id',$orgt->org_idParent)->get()->first();
+           }
+           else{
+              $orgp=Organization::orderBy('org_id', 'DESC')->where('org_id',$tempus->user_IdOrg)->get()->first();
+           }
+           $surveys= $surveys->where('survey_idorglv1', '=', $orgp->org_id);
+           //-----------
+        }  
+        $surveys=$surveys->get();
+        //print_r($surveys);
+        //--------
+        if(isset($surveys))
+        foreach($surveys as $sv){
+            //print_r($sv);
+            $s=Survey::find($sv->survey_id); 
+            $s->survey_note1=$this->tinhMucdoHailong($sv->survey_id,$sv->survey_idorglv1);
+            $s->save();
+        }
+        //------
+        return redirect('admin/thongke/tkTheoCauhoi');
     }
 
     public function tinhthongke_bc2($survey){
